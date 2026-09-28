@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WallVault | Dark Wallpaper Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        vault: {
+                            bg: '#0a0a0c',
+                            card: '#121216',
+                            border: '#22222a',
+                            accent: '#6366f1',
+                            accentHover: '#4f46e5',
+                            text: '#f3f4f6',
+                            muted: '#9ca3af'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tone.js for Ambient Synth Audio -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <!-- Custom CSS for Masonry & Sleek Scrollbar -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #22222a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+
+        /* Pure CSS Masonry Column Layout */
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 1rem;
+        }
+        @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
+        @media (min-width: 1280px) { .masonry-grid { column-count: 4; } }
+        @media (min-width: 1536px) { .masonry-grid { column-count: 5; } }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+        }
+
+        /* Pulsing & Hover Glow Animations */
+        .glow-hover {
+            transition: all 0.3s ease;
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.25);
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        /* Glassmorphism modal background */
+        .modal-glass {
+            background: rgba(10, 10, 12, 0.85);
+            backdrop-filter: blur(16px);
+        }
+    </style>
+</head>
+<body class="bg-vault-bg text-vault-text font-sans antialiased min-h-screen flex flex-col selection:bg-vault-accent selection:text-white">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-vault-bg/90 backdrop-blur-md border-b border-vault-border px-4 py-3 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            
+            <!-- Logo & Brand -->
+            <div class="flex items-center gap-3">
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+                        V
+                    </div>
+                    <span class="font-bold text-xl tracking-wide hidden sm:inline-block bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-indigo-300">
+                        WallVault
+                    </span>
+                </a>
+
+                <!-- Discord Badge for abs_org -->
+                <a href="https://discord.com" target="_blank" rel="noopener noreferrer" 
+                   class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#5865F2]/10 border border-[#5865F2]/30 text-[#5865F2] hover:bg-[#5865F2] hover:text-white transition-all text-xs font-semibold">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 127.14 96.36">
+                        <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.91-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.91,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.91,96.12,53,91.08,65.69,84.69,65.69Z"/>
+                    </svg>
+                    <span>abs_org</span>
+                </a>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="flex-1 max-w-xl relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-vault-muted text-sm"></i>
+                <input type="text" id="searchInput" placeholder="Search 500+ dark wallpapers (e.g. Cyberpunk, GTR, Lion)..." 
+                       class="w-full bg-vault-card border border-vault-border rounded-full pl-10 pr-10 py-2 text-sm text-vault-text placeholder-vault-muted focus:outline-none focus:border-vault-accent transition-all">
+                <button id="clearSearch" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-vault-muted hover:text-white text-xs">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Actions: Synth Audio Toggle & Upload -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Synth Calm Music Toggle -->
+                <button id="audioToggleBtn" title="Toggle Synth Ambient Music" 
+                        class="p-2.5 rounded-full bg-vault-card border border-vault-border hover:border-vault-accent text-vault-muted hover:text-vault-accent transition-all flex items-center justify-center">
+                    <i id="audioIcon" class="fa-solid fa-volume-xmark text-base"></i>
+                </button>
+
+                <!-- Upload Button -->
+                <button id="openUploadBtn" 
+                        class="flex items-center gap-2 px-4 py-2 rounded-full bg-vault-accent hover:bg-vault-accentHover text-white text-sm font-semibold shadow-lg shadow-indigo-500/20 transition-all hover:scale-105 active:scale-95">
+                    <i class="fa-solid fa-plus text-xs"></i>
+                    <span class="hidden sm:inline">Upload</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Category Tabs Navigation -->
+    <nav class="border-b border-vault-border bg-vault-bg/50 px-4 py-3 sticky top-[65px] z-30 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4 overflow-x-auto no-scrollbar">
+            <div class="flex items-center gap-2" id="categoryTabs">
+                <button data-category="All" class="category-btn active px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-vault-accent text-white border-vault-accent">
+                    All
+                </button>
+                <button data-category="Cars" class="category-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-vault-card text-vault-muted border-vault-border hover:text-white hover:border-vault-accent">
+                    <i class="fa-solid fa-car-side mr-1.5"></i>Cars
+                </button>
+                <button data-category="Animals" class="category-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-vault-card text-vault-muted border-vault-border hover:text-white hover:border-vault-accent">
+                    <i class="fa-solid fa-paw mr-1.5"></i>Animals
+                </button>
+                <button data-category="Devices" class="category-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-vault-card text-vault-muted border-vault-border hover:text-white hover:border-vault-accent">
+                    <i class="fa-solid fa-laptop mr-1.5"></i>Devices
+                </button>
+                <button data-category="Footballers" class="category-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-vault-card text-vault-muted border-vault-border hover:text-white hover:border-vault-accent">
+                    <i class="fa-solid fa-[#000000] fa-futbol mr-1.5"></i>Footballers
+                </button>
+                <button data-category="Anime" class="category-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-vault-card text-vault-muted border-vault-border hover:text-white hover:border-vault-accent">
+                    <i class="fa-solid fa-dragon mr-1.5"></i>Anime
+                </button>
+                <button data-category="Saved" class="category-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-vault-card text-vault-muted border-vault-border hover:text-white hover:border-vault-accent">
+                    <i class="fa-solid fa-bookmark mr-1.5 text-amber-400"></i>Saved Board
+                </button>
+            </div>
+
+            <!-- Total Counter Display -->
+            <div class="text-xs text-vault-muted whitespace-nowrap hidden md:block">
+                Showing <span id="wallCount" class="font-bold text-white">0</span> Wallpapers
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6">
+        
+        <!-- Empty State Container -->
+        <div id="emptyState" class="hidden flex-col items-center justify-center py-20 text-center">
+            <div class="w-20 h-20 rounded-full bg-vault-card border border-vault-border flex items-center justify-center mb-4 text-vault-muted text-3xl">
+                <i class="fa-solid fa-image-slash"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">No wallpapers found</h3>
+            <p class="text-sm text-vault-muted max-w-sm mb-6">Try searching for something else or explore our top categories above.</p>
+            <button id="resetFiltersBtn" class="px-5 py-2 rounded-full bg-vault-accent text-white text-xs font-semibold hover:bg-vault-accentHover transition-all">
+                Reset Filters
+            </button>
+        </div>
+
+        <!-- Masonry Wallpapers Grid -->
+        <div id="wallpaperGrid" class="masonry-grid">
+            <!-- Dynamically populated wallpapers will appear here -->
+        </div>
+
+        <!-- Infinite Scroll / Load More Spinner -->
+        <div id="loadingIndicator" class="flex justify-center py-8">
+            <div class="w-8 h-8 border-4 border-vault-accent border-t-transparent rounded-full animate-spin"></div>
+        </div>
+    </main>
+
+    <!-- Interactive Lightbox Modal -->
+    <div id="lightboxModal" class="fixed inset-0 z-50 hidden modal-glass flex items-center justify-center p-2 sm:p-6 transition-opacity duration-300">
+        <div class="bg-vault-card border border-vault-border rounded-2xl max-w-5xl w-full max-h-[92vh] overflow-hidden flex flex-col md:flex-row shadow-2xl relative">
+            
+            <!-- Close Modal Button -->
+            <button id="closeLightboxBtn" class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center backdrop-blur-sm transition-all">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+
+            <!-- Lightbox Image Viewport -->
+            <div class="md:w-3/5 bg-black/80 flex items-center justify-center relative overflow-hidden min-h-[300px] md:min-h-[500px]">
+                <img id="modalImage" src="" alt="Wallpaper Preview" class="max-h-[85vh] w-auto max-w-full object-contain transition-all duration-300">
+                <div id="modalImageSpinner" class="absolute border-4 border-vault-accent border-t-transparent rounded-full w-10 h-10 animate-spin"></div>
+            </div>
+
+            <!-- Lightbox Details & Interactive Panel -->
+            <div class="md:w-2/5 p-5 flex flex-col justify-between border-t md:border-t-0 md:border-l border-vault-border overflow-y-auto max-h-[50vh] md:max-h-[92vh]">
+                
+                <!-- Header & Metadata -->
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span id="modalCategory" class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-vault-accent/20 text-vault-accent border border-vault-accent/30">
+                            Category
+                        </span>
+                        <span id="modalResolution" class="text-xs text-vault-muted">
+                            4K Ultra HD
+                        </span>
+                    </div>
+
+                    <h2 id="modalTitle" class="text-xl font-bold text-white mb-2 leading-snug">Wallpaper Title</h2>
+                    
+                    <!-- Action Buttons Toolbar -->
+                    <div class="flex items-center gap-2 my-4">
+                        <button id="modalDownloadBtn" class="flex-1 py-2.5 px-4 rounded-xl bg-vault-accent hover:bg-vault-accentHover text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20 transition-all">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Download HD</span>
+                        </button>
+                        
+                        <button id="modalSaveBtn" class="p-2.5 rounded-xl border border-vault-border bg-vault-bg hover:border-amber-500 text-vault-muted hover:text-amber-400 transition-all" title="Save to Board">
+                            <i class="fa-solid fa-bookmark text-base"></i>
+                        </button>
+
+                        <button id="modalShareBtn" class="p-2.5 rounded-xl border border-vault-border bg-vault-bg hover:border-vault-accent text-vault-muted hover:text-vault-accent transition-all" title="Copy Link">
+                            <i class="fa-solid fa-link text-base"></i>
+                        </button>
+                    </div>
+
+                    <!-- Tags List -->
+                    <div class="mb-5">
+                        <h4 class="text-xs font-semibold text-vault-muted uppercase tracking-wider mb-2">Tags</h4>
+                        <div id="modalTags" class="flex flex-wrap gap-1.5">
+                            <!-- Tags rendered dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comment Section -->
+                <div class="border-t border-vault-border pt-4 mt-2">
+                    <h4 class="text-xs font-semibold text-vault-muted uppercase tracking-wider mb-3">Community Comments (<span id="commentCount">0</span>)</h4>
+                    
+                    <!-- Comment Input -->
+                    <form id="commentForm" class="flex gap-2 mb-4">
+                        <input type="text" id="commentInput" placeholder="Add a comment..." required
+                               class="flex-1 bg-vault-bg border border-vault-border rounded-xl px-3 py-2 text-xs text-vault-text placeholder-vault-muted focus:outline-none focus:border-vault-accent">
+                        <button type="submit" class="px-3 py-2 bg-vault-card border border-vault-border hover:border-vault-accent text-white rounded-xl text-xs font-semibold transition-all">
+                            Post
+                        </button>
+                    </form>
+
+                    <!-- Comments List Container -->
+                    <div id="commentsContainer" class="space-y-3 max-h-40 overflow-y-auto pr-1">
+                        <!-- Comments will be appended here -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Wallpaper Upload Modal -->
+    <div id="uploadModal" class="fixed inset-0 z-50 hidden modal-glass flex items-center justify-center p-4">
+        <div class="bg-vault-card border border-vault-border rounded-2xl max-w-lg w-full p-6 shadow-2xl relative">
+            <button id="closeUploadBtn" class="absolute top-4 right-4 text-vault-muted hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 class="text-lg font-bold text-white mb-1">Upload Dark Wallpaper</h3>
+            <p class="text-xs text-vault-muted mb-4">Share your favorite high-res dark aesthetics with the community.</p>
+
+            <form id="uploadForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-vault-muted mb-1">Title</label>
+                    <input type="text" id="uploadTitle" required placeholder="e.g., Cyberpunk Neon City"
+                           class="w-full bg-vault-bg border border-vault-border rounded-xl px-3 py-2 text-xs text-vault-text focus:outline-none focus:border-vault-accent">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-vault-muted mb-1">Category</label>
+                        <select id="uploadCategory" class="w-full bg-vault-bg border border-vault-border rounded-xl px-3 py-2 text-xs text-vault-text focus:outline-none focus:border-vault-accent">
+                            <option value="Cars">Cars</option>
+                            <option value="Animals">Animals</option>
+                            <option value="Devices">Devices</option>
+                            <option value="Footballers">Footballers</option>
+                            <option value="Anime">Anime</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-vault-muted mb-1">Tags (Comma separated)</label>
+                        <input type="text" id="uploadTags" placeholder="dark, neon, 4k"
+                               class="w-full bg-vault-bg border border-vault-border rounded-xl px-3 py-2 text-xs text-vault-text focus:outline-none focus:border-vault-accent">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-vault-muted mb-1">Direct Image URL</label>
+                    <input type="url" id="uploadUrl" required placeholder="https://images.unsplash.com/..."
+                           class="w-full bg-vault-bg border border-vault-border rounded-xl px-3 py-2 text-xs text-vault-text focus:outline-none focus:border-vault-accent">
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full py-2.5 rounded-xl bg-vault-accent hover:bg-vault-accentHover text-white text-xs font-semibold shadow-lg shadow-indigo-500/20 transition-all">
+                        Publish Wallpaper
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast Popup -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-vault-card border border-vault-accent text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-xs font-medium">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-vault-accent text-base"></i>
+        <span id="toastMessage">Notification message here</span>
+    </div>
+
+    <script>
+        /* Interactive JavaScript Engine for WallVault */
+
+        // Category Keyword Seeds for Unsplash Dark Wallpapers
+        const categorySeeds = {
+            Cars: ['supercar', 'porsche', 'lamborghini', 'gtr', 'bmw-m4', 'dark-car', 'matte-black-car', 'night-drive'],
+            Animals: ['black-panther', 'dark-wolf', 'owl-night', 'black-cat', 'lion-dark', 'snake-dark', 'jellyfish-glow'],
+            Devices: ['setup-gaming', 'cyberpunk-pc', 'keyboard-rgb', 'iphone-dark', 'neon-workspace', 'minimal-setup'],
+            Footballers: ['messi-dark', 'ronaldo-portugal', 'neymar-psg', 'mbappe-dark', 'football-stadium-night', 'champions-league'],
+            Anime: ['anime-dark', 'cyberpunk-anime', 'samurai-dark', 'tokyo-ghoul', 'ninja-black', 'anime-city-night']
+        };
+
+        // Storage Key
+        const LOCAL_STORAGE_KEY = 'wallvault_saved_ids';
+        const UPLOADS_STORAGE_KEY = 'wallvault_custom_uploads';
+        const COMMENTS_STORAGE_KEY = 'wallvault_comments';
+
+        // State Variables
+        let wallpapers = [];
+        let savedWallpaperIds = new Set(JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]'));
+        let customUploads = JSON.parse(localStorage.getItem(UPLOADS_STORAGE_KEY) || '[]');
+        let wallpaperComments = JSON.parse(localStorage.getItem(COMMENTS_STORAGE_KEY) || '{}');
+        
+        let currentCategory = 'All';
+        let searchQuery = '';
+        let currentModalWallpaper = null;
+        let isAudioPlaying = false;
+        let synthSynth, synthFilter, synthLoop;
+
+        function generateWallpapersDataset() {
+            const list = [];
+            const categories = Object.keys(categorySeeds);
+            let idCounter = 1;
+
+            // Generate 100 wallpapers per category = 500 preloaded wallpapers
+            categories.forEach(cat => {
+                const seeds = categorySeeds[cat];
+                for (let i = 1; i <= 100; i++) {
+                    const seed = seeds[i % seeds.length];
+                    const imageId = 1000 + idCounter;
+                    
+                    // Unsplash Source with Dark aesthetic parameters
+                    const url = `https://images.unsplash.com/photo-${1500000000000 + (idCounter * 12345) % 90000000}?auto=format&fit=crop&w=800&q=80`;
+                    // Fallback reliable dark themed Unsplash source URLs based on seed query
+                    const sourceUrl = `https://source.unsplash.com/800x1200/?dark,${seed}`;
+                    
+                    list.push({
+                        id: `preset_${idCounter}`,
+                        title: `${cat} ${seed.replace('-', ' ').toUpperCase()} #${i}`,
+                        category: cat,
+                        // High quality dark fallback image placeholders with keyword specificity
+                        url: `https://picsum.photos/seed/dark_${cat.toLowerCase()}_${i}/800/1200`,
+                        tags: ['dark', cat.toLowerCase(), seed.replace('-', ''), 'hd', 'wallpaper'],
+                        likes: Math.floor(Math.random() * 400) + 50,
+                        downloads: Math.floor(Math.random() * 900) + 100
+                    });
+                    idCounter++;
+                }
+            });
+
+            // Combine user uploads + preset 500
+            return [...customUploads, ...list];
+        }
+
+        function initSynthAudio() {
+            try {
+                // Calm Synth Ambient Pad Generator using Tone.js
+                const synth = new Tone.PolySynth(Tone.Synth, {
+                    oscillator: { type: 'sine' },
+                    envelope: { attack: 3, decay: 2, sustain: 0.8, release: 5 }
+                }).toDestination();
+
+                synth.volume.value = -18; // Soft volume
+
+                const chords = [
+                    ['C3', 'E3', 'G3', 'B3'],
+                    ['A2', 'C3', 'E3', 'G3'],
+                    ['F2', 'A2', 'C3', 'E3'],
+                    ['G2', 'B2', 'D3', 'F3']
+                ];
+
+                let chordIdx = 0;
+                Tone.Transport.scheduleRepeat((time) => {
+                    synth.triggerAttackRelease(chords[chordIdx], '4n', time);
+                    chordIdx = (chordIdx + 1) % chords.length;
+                }, '2m');
+
+            } catch (err) {
+                console.log('Audio init error:', err);
+            }
+        }
+
+        async function toggleAudio() {
+            const btn = document.getElementById('audioToggleBtn');
+            const icon = document.getElementById('audioIcon');
+
+            if (!isAudioPlaying) {
+                await Tone.start();
+                initSynthAudio();
+                Tone.Transport.start();
+                isAudioPlaying = true;
+                icon.className = 'fa-solid fa-volume-high text-vault-accent animate-pulse';
+                showToast('Calm ambient synth music turned ON');
+            } else {
+                Tone.Transport.stop();
+                isAudioPlaying = false;
+                icon.className = 'fa-solid fa-volume-xmark text-vault-muted';
+                showToast('Ambient synth music muted');
+            }
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('wallpaperGrid');
+            const emptyState = document.getElementById('emptyState');
+            const wallCount = document.getElementById('wallCount');
+            const loading = document.getElementById('loadingIndicator');
+
+            loading.style.display = 'none';
+
+            // Filter Wallpapers based on Category and Search Query
+            let filtered = wallpapers.filter(item => {
+                const matchesCat = (currentCategory === 'All') ? true :
+                                   (currentCategory === 'Saved') ? savedWallpaperIds.has(item.id) :
+                                   item.category === currentCategory;
+
+                const q = searchQuery.toLowerCase().trim();
+                const matchesSearch = !q || 
+                    item.title.toLowerCase().includes(q) || 
+                    item.category.toLowerCase().includes(q) ||
+                    item.tags.some(t => t.toLowerCase().includes(q));
+
+                return matchesCat && matchesSearch;
+            });
+
+            wallCount.textContent = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+                emptyState.classList.remove('flex');
+            }
+
+            // Render HTML items
+            grid.innerHTML = filtered.map(item => {
+                const isSaved = savedWallpaperIds.has(item.id);
+                return `
+                    <div class="masonry-item group relative rounded-2xl overflow-hidden bg-vault-card border border-vault-border glow-hover cursor-pointer transition-all duration-300"
+                         onclick="openLightbox('${item.id}')">
+                        <!-- Image -->
+                        <img src="${item.url}" 
+                             alt="${item.title}" 
+                             loading="lazy"
+                             class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500 min-h-[180px] bg-vault-card"
+                             onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80'">
+
+                        <!-- Dark Gradient Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-between">
+                            
+                            <!-- Top Right Save Button -->
+                            <div class="flex justify-end">
+                                <button onclick="event.stopPropagation(); toggleSave('${item.id}')" 
+                                        class="w-9 h-9 rounded-full ${isSaved ? 'bg-amber-500 text-white' : 'bg-black/60 text-white hover:bg-vault-accent'} flex items-center justify-center backdrop-blur-md transition-all">
+                                    <i class="fa-solid fa-bookmark text-sm"></i>
+                                </button>
+                            </div>
+
+                            <!-- Bottom Details -->
+                            <div>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-vault-accent mb-1 inline-block">
+                                    ${item.category}
+                                </span>
+                                <h3 class="text-sm font-bold text-white leading-tight truncate">
+                                    ${item.title}
+                                </h3>
+                                <div class="flex items-center gap-3 mt-2 text-[11px] text-gray-300">
+                                    <span><i class="fa-solid fa-arrow-down mr-1"></i>${item.downloads}</span>
+                                    <span><i class="fa-solid fa-heart mr-1"></i>${item.likes}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openLightbox(id) {
+            const item = wallpapers.find(w => w.id === id);
+            if (!item) return;
+
+            currentModalWallpaper = item;
+            const modal = document.getElementById('lightboxModal');
+            const img = document.getElementById('modalImage');
+            const spinner = document.getElementById('modalImageSpinner');
+            
+            spinner.style.display = 'block';
+            img.style.opacity = '0';
+            img.src = item.url;
+            img.onload = () => {
+                spinner.style.display = 'none';
+                img.style.opacity = '1';
+            };
+
+            document.getElementById('modalTitle').textContent = item.title;
+            document.getElementById('modalCategory').textContent = item.category;
+
+            // Render Tags
+            const tagsContainer = document.getElementById('modalTags');
+            tagsContainer.innerHTML = item.tags.map(t => 
+                `<span class="px-2.5 py-1 rounded-lg bg-vault-bg border border-vault-border text-[11px] text-vault-muted">#${t}</span>`
+            ).join('');
+
+            // Update Save Button status
+            updateModalSaveBtn();
+
+            // Load Comments
+            renderComments(item.id);
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightboxModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            currentModalWallpaper = null;
+        }
+
+        function renderComments(wallpaperId) {
+            const container = document.getElementById('commentsContainer');
+            const countEl = document.getElementById('commentCount');
+            const comments = wallpaperComments[wallpaperId] || [];
+
+            countEl.textContent = comments.length;
+
+            if (comments.length === 0) {
+                container.innerHTML = `<p class="text-xs text-vault-muted italic py-2">No comments yet. Be the first!</p>`;
+                return;
+            }
+
+            container.innerHTML = comments.map(c => `
+                <div class="bg-vault-bg p-2.5 rounded-xl border border-vault-border">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-xs font-semibold text-vault-accent">${c.author}</span>
+                        <span class="text-[10px] text-vault-muted">${c.time}</span>
+                    </div>
+                    <p class="text-xs text-vault-text">${c.text}</p>
+                </div>
+            `).join('');
+        }
+
+        function handleAddComment(e) {
+            e.preventDefault();
+            if (!currentModalWallpaper) return;
+
+            const input = document.getElementById('commentInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const wallpaperId = currentModalWallpaper.id;
+            if (!wallpaperComments[wallpaperId]) {
+                wallpaperComments[wallpaperId] = [];
+            }
+
+            wallpaperComments[wallpaperId].unshift({
+                author: 'Guest Explorer',
+                text: text,
+                time: 'Just now'
+            });
+
+            localStorage.setItem(COMMENTS_STORAGE_KEY, JSON.stringify(wallpaperComments));
+            input.value = '';
+            renderComments(wallpaperId);
+            showToast('Comment posted successfully');
+        }
+
+        function toggleSave(id) {
+            if (savedWallpaperIds.has(id)) {
+                savedWallpaperIds.delete(id);
+                showToast('Removed from Saved Board');
+            } else {
+                savedWallpaperIds.add(id);
+                showToast('Saved to your Board!');
+            }
+
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(Array.from(savedWallpaperIds)));
+            
+            if (currentModalWallpaper && currentModalWallpaper.id === id) {
+                updateModalSaveBtn();
+            }
+
+            renderGallery();
+        }
+
+        function updateModalSaveBtn() {
+            if (!currentModalWallpaper) return;
+            const btn = document.getElementById('modalSaveBtn');
+            const isSaved = savedWallpaperIds.has(currentModalWallpaper.id);
+            if (isSaved) {
+                btn.className = 'p-2.5 rounded-xl border border-amber-500 bg-amber-500/10 text-amber-400 transition-all';
+            } else {
+                btn.className = 'p-2.5 rounded-xl border border-vault-border bg-vault-bg hover:border-amber-500 text-vault-muted hover:text-amber-400 transition-all';
+            }
+        }
+
+        function downloadWallpaper() {
+            if (!currentModalWallpaper) return;
+            showToast('Downloading High-Resolution Wallpaper...');
+            const a = document.createElement('a');
+            a.href = currentModalWallpaper.url;
+            a.download = `${currentModalWallpaper.title.replace(/\s+/g, '_')}_4K.jpg`;
+            a.target = '_blank';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function copyWallpaperLink() {
+            if (!currentModalWallpaper) return;
+            const link = window.location.origin + window.location.pathname + '?id=' + currentModalWallpaper.id;
+            
+            // Clipboard fallback
+            const dummy = document.createElement('textarea');
+            document.body.appendChild(dummy);
+            dummy.value = link;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+
+            showToast('Link copied to clipboard!');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            const msgEl = document.getElementById('toastMessage');
+            msgEl.textContent = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function handleUploadSubmit(e) {
+            e.preventDefault();
+
+            const title = document.getElementById('uploadTitle').value.trim();
+            const category = document.getElementById('uploadCategory').value;
+            const tagsInput = document.getElementById('uploadTags').value.trim();
+            const url = document.getElementById('uploadUrl').value.trim();
+
+            const newWallpaper = {
+                id: 'custom_' + Date.now(),
+                title: title,
+                category: category,
+                url: url,
+                tags: tagsInput ? tagsInput.split(',').map(t => t.trim()) : ['custom', category.toLowerCase()],
+                likes: 1,
+                downloads: 0
+            };
+
+            customUploads.unshift(newWallpaper);
+            localStorage.setItem(UPLOADS_STORAGE_KEY, JSON.stringify(customUploads));
+            
+            wallpapers.unshift(newWallpaper);
+            
+            document.getElementById('uploadForm').reset();
+            document.getElementById('uploadModal').classList.add('hidden');
+            
+            showToast('Wallpaper published successfully!');
+            renderGallery();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load dataset
+            wallpapers = generateWallpapersDataset();
+            renderGallery();
+
+            // Category Filter Buttons
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    categoryBtns.forEach(b => {
+                        b.className = 'category-btn px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-vault-card text-vault-muted border-vault-border hover:text-white hover:border-vault-accent';
+                    });
+                    btn.className = 'category-btn active px-4 py-1.5 rounded-full text-xs font-semibold border transition-all bg-vault-accent text-white border-vault-accent';
+                    
+                    currentCategory = btn.getAttribute('data-category');
+                    renderGallery();
+                });
+            });
+
+            // Search Bar Input
+            const searchInput = document.getElementById('searchInput');
+            const clearSearch = document.getElementById('clearSearch');
+
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                if (searchQuery) {
+                    clearSearch.classList.remove('hidden');
+                } else {
+                    clearSearch.classList.add('hidden');
+                }
+                renderGallery();
+            });
+
+            clearSearch.addEventListener('click', () => {
+                searchInput.value = '';
+                searchQuery = '';
+                clearSearch.classList.add('hidden');
+                renderGallery();
+            });
+
+            document.getElementById('resetFiltersBtn').addEventListener('click', () => {
+                searchInput.value = '';
+                searchQuery = '';
+                currentCategory = 'All';
+                categoryBtns[0].click();
+            });
+
+            // Synth Audio Toggle
+            document.getElementById('audioToggleBtn').addEventListener('click', toggleAudio);
+
+            // Lightbox Modal Controls
+            document.getElementById('closeLightboxBtn').addEventListener('click', closeLightbox);
+            document.getElementById('modalSaveBtn').addEventListener('click', () => {
+                if (currentModalWallpaper) toggleSave(currentModalWallpaper.id);
+            });
+            document.getElementById('modalDownloadBtn').addEventListener('click', downloadWallpaper);
+            document.getElementById('modalShareBtn').addEventListener('click', copyWallpaperLink);
+            document.getElementById('commentForm').addEventListener('submit', handleAddComment);
+
+            // Upload Modal Controls
+            const uploadModal = document.getElementById('uploadModal');
+            document.getElementById('openUploadBtn').addEventListener('click', () => uploadModal.classList.remove('hidden'));
+            document.getElementById('closeUploadBtn').addEventListener('click', () => uploadModal.classList.add('hidden'));
+            document.getElementById('uploadForm').addEventListener('submit', handleUploadSubmit);
+
+            // Close Modals on Outer Click
+            window.addEventListener('click', (e) => {
+                const lightbox = document.getElementById('lightboxModal');
+                if (e.target === lightbox) closeLightbox();
+                if (e.target === uploadModal) uploadModal.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
